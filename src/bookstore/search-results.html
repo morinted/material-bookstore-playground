@@ -1,11 +1,11 @@
 <!-- include top bar -->
 <ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
 
-<h2 class="md-display-2 md-padding-left">{{db.categories[db.category]}}</h2>
+<h2 class="md-display-2 md-padding-left">Showing results for "{{db.keyword}}"</h2>
 
     <md-list>
       <div layout="row" layout-md="column" layout-sm="column" layout-align="start center">
-        <md-list-item class="no-flex" ng-repeat="book in db.getBooksByCategory(db.category)">
+        <md-list-item class="no-flex" ng-repeat="book in db.books | bookcontent: db.keyword">
           <ng-include src="'./src/bookstore/book-thumb.html'"></ng-include>
         </md-list-item>
       </div>

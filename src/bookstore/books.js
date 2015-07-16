@@ -14,9 +14,34 @@ angular.module('books', [])
             $scope.db = booksDB;
             $scope.cart = cart;
             $scope.category = "Browse by Category";
+            $scope.validation = {
+                postalCode: '(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)'
+            };
+
+            $scope.checkout = {};
 
             $scope.searchTextChange = function (text) {
                 console.log(text);
+            };
+
+            $scope.goBack = function () {
+                $window.history.back();
+            };
+
+            $scope.addedToCart = function (title, total) {
+                console.log('spawning toast');
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content('Added ' + title + ' to cart. ' + total
+                            + ' in cart.')
+                        .position('top right')
+                        .hideDelay(2000)
+                );
+            };
+
+            $scope.goToResult = function (query) {
+                
+                $location.path('/search-result');
             };
 
             $scope.goToCategory = function (cat) {
@@ -25,7 +50,7 @@ angular.module('books', [])
                 if (cat !== "Browse by Category") {
 
                     var catIndex = $scope.db.categories.indexOf(cat);
-                    if (catIndex != -1) {
+                    if (catIndex !== -1) {
                         console.log("index = " + catIndex);
                         $scope.results = booksDB.getBooksByCategory(catIndex);
                         booksDB.category = catIndex;
@@ -36,19 +61,7 @@ angular.module('books', [])
 
                 }
 
-                $scope.goBack = function () {
-                    $window.history.back();
-                };
-                $scope.addedToCart = function (title, total) {
-                    console.log('spawning toast');
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .content('Added ' + title + ' to cart. ' + total
-                                + ' in cart.')
-                            .position('top right')
-                            .hideDelay(2000)
-                    );
-                };
+
             };
 
 
@@ -121,6 +134,7 @@ angular.module('books', [])
         db.category = 0;
 
         db.goToBook = function (book) {
+            console.log("seraching");
             db.selectedBook = book;
             $location.path("/book");
         };

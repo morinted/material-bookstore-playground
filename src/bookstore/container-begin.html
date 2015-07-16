@@ -1,7 +1,8 @@
 <div layout="column" layout-fill>
   <md-toolbar class="md-tall">
     <div class="md-toolbar-tools">
-      <span class="site-title">{{title}}</span>
+      <md-icon href="#/">dashboard</md-icon>
+      <a href="#/" class="site-title">{{title}}</a>
       <!-- fill up the space between left and right area -->
       <span flex></span>
       <!-- Shopping Cart Icon -->
@@ -35,22 +36,26 @@
             ng-disabled="false"
             md-no-cache="false"
             md-selected-item="selectedSearchItem"
-            md-search-text-change="searchTextChange(seachText)"
-            md-search-text="searchText"
+            md-search-text-change="searchTextChange(db.keyword)"
+            md-search-text="db.keyword"
             md-selected-item-change="selectedItemChange(selectedSearchItem)"
-            md-items="book in db.books | bookcontent: searchText"
+            md-items="book in db.books | bookcontent: db.keyword"
             md-item-text="book.title"
             md-min-length="1"
             placeholder="Search books!">
           <md-item-template>
+          <div style="width:100%;height:100%" ng-click="db.goToBook(book)">
             <span md-highlight-text="searchText" md-highlight-flags="^i">{{book.title}}</span>
+            </div>
           </md-item-template>
           <md-not-found>
             No matches found for "{{searchText}}".
           </md-not-found>
         </md-autocomplete>
 
-        <md-button class="md-icon-button search-icon" aria-label="Search!">
+        <md-button class="md-icon-button search-icon"
+          aria-label="Search!"
+          ng-click="goToResult(searchText)">
           <md-icon>search</md-icon>
         </md-button>
       </div>

@@ -162,6 +162,11 @@ span.name {
   margin-right: auto;
 }
 
+.no-flex {
+  flex:none !important;
+  -webkit-flex:none !important;
+}
+
 .display-cards {
   position: relative !important;
   min-height: 300px !important;
