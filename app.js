@@ -3,11 +3,15 @@ angular
     .config(function($mdThemingProvider, $mdIconProvider, $routeProvider) {
         $routeProvider.
             when('/', {
-              templateUrl: './src/bookstore/main.html',
-              controller: 'MainController'
+                templateUrl: './src/bookstore/main.html',
+                controller: 'MainController'
+            }).
+            when('/result', {
+                templateUrl: './src/bookstore/result.html',
+                controller: 'MainController'
             }).
             otherwise({
-              redirectTo: '/'
+                redirectTo: '/'
             });
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
