@@ -1,9 +1,8 @@
 <ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
 
-
-
 <div layout="column">
-    <md-card  class="md-whiteframe-z3">
+    <md-card  class="md-whiteframe-z4">
+    <md-card-content>
     <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
       <md-button class="md-raised" ng-click="goBack()">Back</md-button>
       <md-button class="md-raised md-primary"
@@ -11,8 +10,22 @@
         Add to Cart ({{cart.quantityOf(db.selectedBook)}} in cart)
        </md-button>
     </section>
-    <h2 class="md-display-1 md-padding-left">{{db.selectedBook.title}}</h2>
-    <img ng-src="{{db.selectedBook.thumbUrl}}">
+    <hr />
+    <div style="position: relative">
+    <h3 class="percent-price md-title md-primary">
+    <span ng-if="db.selectedBook.percentOff > 0">
+    Sale! -{{db.selectedBook.percentOff}}%:
+       <strike>{{db.selectedBook.price | currency}}</strike>
+        </span>
+        <span class="bigger">{{db.getPrice(db.selectedBook) | currency}}</span>
+    </h3>
+    <img class="book-thumb-large" ng-src="{{ db.selectedBook.thumbUrl }}" alt="{{ db.selectedBook.title }}" />
+    <h2 class="md-display-1" style="padding-bottom: 0; margin-bottom: 0">{{db.selectedBook.title}}</h2>
+    <h2 class="md-headline" style="display:inline; padding-top: 0; margin-top: 0">Written by {{db.selectedBook.author}}</h2>
+    <h2 class="md-title">Released {{db.toDate(db.selectedBook.releaseDate)}}</h2>
+    <p class="inline">{{db.selectedBook.description}}</p>
+    </div>
+    </md-card-content>
     </md-card>
 
     <h2 class="md-display-2 md-padding-left">Book Suggestions</h2>

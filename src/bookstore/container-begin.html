@@ -1,17 +1,20 @@
 <div layout="column" layout-fill>
   <md-toolbar class="md-tall">
     <div class="md-toolbar-tools">
-      <md-icon href="#/">dashboard</md-icon>
-      <a href="#/" class="site-title">{{title}}</a>
+            <md-icon ng-href="#/" md-svg-icon="books">
+            </md-icon>
+      <span ng-href="#/" class="site-title">{{title}}</span>
       <!-- fill up the space between left and right area -->
       <span flex></span>
       <!-- Shopping Cart Icon -->
-       <md-button class="md-icon-button cart-icon">
+       <h3 ng-if="cart.count()">
+        {{cart.count()}}
+       </h3>
+       <md-button ng-href="#/cart" class="md-icon-button cart-icon">
           <md-tooltip>
               Shopping Cart
             </md-tooltip>
-            <md-icon class="md-light md-48">
-              shopping cart
+            <md-icon md-svg-icon="shopping_cart">
             </md-icon>
         </md-button>
       </div>

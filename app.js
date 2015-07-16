@@ -6,6 +6,10 @@ angular
                 templateUrl: './src/bookstore/main.html',
                 controller: 'MainController'
             }).
+            when('/cart', {
+                templateUrl: './src/bookstore/cart.html',
+                controller: 'MainController',
+            }).
             when('/book', {
                 templateUrl: './src/bookstore/book.html',
                 controller: 'MainController',
@@ -31,6 +35,9 @@ angular
             });
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
+            .icon("books"       , "./assets/svg/books.svg"        , 36)
+            .icon("checkout"       , "./assets/svg/checkout.svg"        , 36)
+            .icon("shopping_cart"       , "./assets/svg/shopping_cart.svg"        , 36)
             .icon("menu"       , "./assets/svg/menu.svg"        , 24)
             .icon("share"      , "./assets/svg/share.svg"       , 24)
             .icon("google_plus", "./assets/svg/google_plus.svg" , 512)

@@ -1,0 +1,83 @@
+<ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
+
+<div layout="column">
+    <md-card  class="md-whiteframe-z4">
+    <md-card-content>
+    <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+      <md-button class="md-raised" ng-click="goBack()">Back</md-button>
+      <md-button class="md-raised md-primary"
+                 ng-href="#/checkout"
+                 ng-if="cart.content.length"
+                 ng-click="cart.addToCart(db.selectedBook, null, null, addedToCart)">
+                 Proceed to Checkout
+                <md-icon md-svg-icon="checkout">
+                </md-icon>
+       </md-button>
+    </section>
+    <hr />
+    <div style="position: relative">
+    <div ng-if="cart.content.length">
+        <h2 class="md-display-1" style="padding-bottom: 0; margin-bottom: 0">Cart Total</h2>
+        <h2 class="md-headline" style="display:inline; padding-top: 0; margin-top: 0">{{cart.total(cart.content) | currency}}</h2>
+        <h2 class="md-display-1" style="padding-bottom: 0; margin-bottom: 0">Breakdown</h2>
+        </div>
+
+        <md-list>
+          <div layout="row" layout-md="column" layout-sm="column" layout-align="start start">
+            <md-list-item class="md-2-line display-list" ng-repeat="item in cart.content"
+            style="flex: none; -webkit-flex:none; justify-content: flex-start !important; -webkit-justify-content: flex-start !important;"
+            ng-init="book = item.book">
+
+            <div >
+
+                        <md-card>
+                        <md-card-content>
+                        <h3 style="float: left">
+                        Quantity:
+                        <md-input-container md-no-float style="width: 50px !important;display: inline !important">
+                        <input ng-model="item.quantity" ng-change="cart.setQuantity(book, item.quantity)" style="width: 50px !important;display: inline !important" type="number" placeholder="#">
+                    </md-input-container>
+                    <span ng-if="item.quantity >= 1"><br>Item total: {{item.quantity * db.getPrice(book) | currency }}</span>
+                    </h3>
+                </md-card-content>
+                <md-button class="md-raised" ng-click="cart.removeFromCart(book)" style="width: 90%">Remove from Cart</md-button>
+                </md-card>
+                        <md-card class="md-whiteframe-z3 wide-cards">
+                        <md-card-content  class="display-cards">
+                        <div class = "thumb-container" ng-click="db.goToBook(book)">
+                          <img class="book-thumb" ng-src="{{ book.thumbUrl }}" alt="{{ book.title }}" />
+                        <h3 class="percent md-title md-primary" ng-if="book.percentOff > 0">
+                         -{{book.percentOff}}%!
+                        </h3>
+                        <h3 class="price md-title md-primary">
+                         {{db.getPrice(book) | currency}}
+                        </h3>
+                          <h3 class="md-subhead">{{book.title | booklimit: 30}}</h3>
+                          <h4 class="md-caption">{{db.toDate(book.releaseDate)}}</h4>
+                          <p>Author: {{book.author}}</p>
+                        </div>
+                        </md-card-content>
+                         
+                        </md-card>
+            </div>
+                    <hr/>
+            </md-list-item>
+          </div>
+        </md-list>
+
+
+        <md-button ng-if="cart.content.length" class="md-primary md-fab md-fab-bottom-right" ng-href="#/checkout">
+            <md-icon md-svg-icon="checkout">
+            </md-icon>
+        </md-button>
+    </div>
+    <div ng-if="!cart.content.length">
+       <h2 class="md-headline" style="display:inline; padding-top: 0; margin-top: 1em; padding-top: 0.5em; margin-left: 0.5em">There are no items in your cart!</h2><br/ >
+       <md-button class="md-raised md-primary" ng-href="#/">
+        Add some!
+        </md-button>
+    </div>
+    </md-card-content>
+    </md-card>
+</div>
+<ng-include src="'./src/bookstore/container-end.html'"></ng-include>
