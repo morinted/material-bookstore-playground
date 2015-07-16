@@ -1,0 +1,18 @@
+<div ng-click="db.goToBook(book)">
+            <md-card flex class="md-whiteframe-z3 wide-cards">
+            <md-card-content  class="display-cards">
+            <div class = "thumb-container">
+              <img class="book-thumb" ng-src="{{ book.thumbUrl }}" alt="{{ book.title }}" />
+            <h3 class="percent md-title md-primary" ng-if="book.percentOff > 0">
+             %{{book.percentOff}} off!
+            </h3>
+            <h3 class="price md-title md-primary">
+             {{db.getPrice(book) | currency}}
+            </h3>
+              <h3 class="md-subhead">{{book.title | booklimit: 30}}</h3>
+              <h4 class="md-caption">{{db.toDate(book.releaseDate)}}</h4>
+              <p>Author: {{book.author}}</p>
+            </div>
+            </md-card-content>
+            </md-card>
+</div>

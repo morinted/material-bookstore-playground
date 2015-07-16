@@ -1,1 +1,18 @@
-book.html
+<ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
+
+
+
+<div layout="column">
+    <md-card  class="md-whiteframe-z3">
+    <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+      <md-button class="md-raised" ng-click="goBack()">Back</md-button>
+      <md-button class="md-raised md-primary"
+                 ng-click="cart.addToCart(db.selectedBook, null, null, addedToCart)">
+        Add to Cart ({{cart.quantityOf(db.selectedBook)}} in cart)
+       </md-button>
+    </section>
+    <h2 class="md-display-1 md-padding-left">{{db.selectedBook.title}}</h2>
+    <img ng-src="{{db.selectedBook.thumbUrl}}">
+    </md-card>
+</div>
+<ng-include src="'./src/bookstore/container-end.html'"></ng-include>

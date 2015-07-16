@@ -6,6 +6,10 @@ angular
                 templateUrl: './src/bookstore/main.html',
                 controller: 'MainController'
             }).
+            when('/book', {
+              templateUrl: './src/bookstore/book.html',
+              controller: 'MainController',
+            }).
             when('/result', {
                 templateUrl: './src/bookstore/result.html',
                 controller: 'MainController'
@@ -24,7 +28,7 @@ angular
             .icon("home"      , "./assets/svg/home.svg"       , 24);
 
             $mdThemingProvider.theme('default')
-                .primaryPalette('brown')
-                .accentPalette('red');
+                .primaryPalette('lime')
+                .accentPalette('green');
 
     });

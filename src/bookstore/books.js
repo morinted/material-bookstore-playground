@@ -1,42 +1,58 @@
 'use strict';
 angular.module('books', [])
-    .controller('MainController', ['$scope', 'booksDB', 'cart', '$location', function (
-        $scope,
-        booksDB,
-        cart,
-        $location
-    ) {
-        $scope.title = "Bookr";
-        $scope.db = booksDB;
-        $scope.cart = cart;
-        $scope.category = "Browse by Category";
+    .controller('MainController', ['$scope', 'booksDB', 'cart', '$location',
+        '$mdToast', '$window',
+        function (
+            $scope,
+            booksDB,
+            cart,
+            $location,
+            $mdToast,
+            $window
+        ) {
+            $scope.title = "Bookr";
+            $scope.db = booksDB;
+            $scope.cart = cart;
+            $scope.category = "Browse by Category";
 
-        $scope.searchTextChange = function (text) {
-            console.log("search text changed to " + text);
-        }
+            $scope.searchTextChange = function (text) {
+                console.log(text);
+            };
 
-        console.log(booksDB.category);
+            $scope.goToCategory = function (cat) {
+                console.log("going to category " + cat);
+                // don't navigate if the default is still selected
+                if (cat !== "Browse by Category") {
 
-        $scope.goToCategory = function (cat) {
-            console.log("going to category " + cat);
-            // don't navigate if the default is still selected
-            if (cat !== "Browse by Category") {
+                    var catIndex = $scope.db.categories.indexOf(cat);
+                    if (catIndex != -1) {
+                        console.log("index = " + catIndex);
+                        $scope.results = booksDB.getBooksByCategory(catIndex);
+                        booksDB.category = catIndex;
+                        $location.path('/result');
+                    } else {
+                        console.log("could not find category " + cat);
+                    }
 
-                var catIndex = $scope.db.categories.indexOf(cat);
-                if (catIndex != -1) {
-                    console.log("index = " + catIndex);
-                    $scope.results = booksDB.getBooksByCategory(catIndex);
-                    booksDB.category = catIndex;
-                    $location.path('/result');
-                } else {
-                    console.log("could not find category " + cat);
                 }
 
-            }
-        };
+                $scope.goBack = function () {
+                    $window.history.back();
+                };
+                $scope.addedToCart = function (title, total) {
+                    console.log('spawning toast');
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .content('Added ' + title + ' to cart. ' + total
+                                + ' in cart.')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                };
+            };
 
 
-    }])
+        }])
     .filter('booklimit', [function () {
         return function (title, limit) {
             title = title.trim();
@@ -86,7 +102,7 @@ angular.module('books', [])
                 return results;
             };
         }])
-    .factory('booksDB', [function () {
+    .factory('booksDB', ['$location', function ($location) {
         var db = {};
 
         db.categories = [
@@ -103,6 +119,11 @@ angular.module('books', [])
         ];
 
         db.category = 0;
+
+        db.goToBook = function (book) {
+            db.selectedBook = book;
+            $location.path("/book");
+        };
 
         db.toDate = function (date) {
             var year,
@@ -140,6 +161,8 @@ angular.module('books', [])
             return month + " " + year;
         };
 
+        db.selectedBook = {};
+
         db.books = [
             {
                 author: 'Harold J. Morowitz',
@@ -155,7 +178,7 @@ angular.module('books', [])
             {
                 author: 'Anthony M. Amore',
                 title: ' The Art of the con: The Most Notorious Fakes, Frauds, and Forgeries in the Art World',
-                pice: 18.80,
+                price: 18.80,
                 percentOff: 0,
                 sales: 2,
                 categories: [0],
@@ -519,30 +542,42 @@ angular.module('books', [])
 
         cart.content = [];
 
-        cart.addToCart = function (book, quantity, set) {
+        cart.addToCart = function (book, quantity, set, callback) {
             // Exclude 'set' for regular add to cart,
             // include to 'set' quantity, or use other
             // function.
+            if (!quantity) {
+                quantity = 1;
+            }
             var i = 0,
-                len = cart.content.length;
+                len = cart.content.length,
+                mod = false;
             for (i; i < len; i += 1) {
                 if (JSON.stringify(
                         cart.content[i].book
                     ) === JSON.stringify(book)) {
+                    mod = true;
                     if (!set) {
                         cart.content[i].quantity += quantity;
                     } else {
                         cart.content[i].quantity = quantity;
                     }
-                    return;
+                    break;
                 }
             }
-            cart.content.push(
-                {
-                    quantity: quantity,
-                    book: book,
-                }
-            );
+            if (!mod) {
+                cart.content.push(
+                    {
+                        quantity: quantity,
+                        book: book,
+                    }
+                );
+                i = cart.content.length - 1;
+            }
+            if (callback) {
+                console.log('calling callback');
+                callback(book.title, cart.content[i].quantity);
+            }
         };
 
         cart.setQuantity = function (book, quantity) {
@@ -561,6 +596,19 @@ angular.module('books', [])
                 }
             }
             console.error("Unable to find " + book.title + " in cart.");
+        };
+
+        cart.quantityOf = function (book) {
+            var i = 0,
+                len = cart.content.length;
+            for (i; i < len; i += 1) {
+                if (JSON.stringify(
+                        cart.content[i].book
+                    ) === JSON.stringify(book)) {
+                    return cart.content[i].quantity;
+                }
+            }
+            return 0;
         };
 
         cart.total = function (content) {

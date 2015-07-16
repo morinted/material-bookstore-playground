@@ -155,20 +155,63 @@ span.name {
 
 .book-thumb {
   width: auto;
-  max-height: 150px;
-  min-height: 150px;
+  max-height: 150px !important;
+  min-height: 150px !important;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
 .display-cards {
-  min-height: 300px;
-  max-height: 300px;
-
+  position: relative !important;
+  min-height: 300px !important;
+  max-height: 300px !important;
 }
+
+.wide-cards {
+  flex-basis: 300px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.thumb-container {
+  position: relative !important;
+}
+
 
 .display-list {
   min-width: 200px !important;
   max-width:300px !important;
+}
+
+.price {
+    border-bottom-left-radius: 0.5em;
+  border-top: none;
+  border-right: none;
+  padding: 2px;
+  position: absolute;
+  right: -16px;
+  background: rgb(205,220,57);
+  top: -16px;
+  margin-top: 0 !important;
+  display: inline;
+}
+
+.percent {
+    border-bottom-right-radius: 0.5em;
+  border-top: none;
+  border-right: none;
+  padding: 2px;
+  position: absolute;
+  left: -16px;
+  background: rgb(205,220,57);
+  top: -16px;
+  margin-top: 0 !important;
+  display: inline;
+}
+
+.md-padding-left {
+  padding-left: 0.5em;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }

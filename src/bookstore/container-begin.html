@@ -1,0 +1,60 @@
+<div layout="column" layout-fill>
+  <md-toolbar class="md-tall">
+    <div class="md-toolbar-tools">
+      <span class="site-title">{{title}}</span>
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <!-- Shopping Cart Icon -->
+       <md-button class="md-icon-button cart-icon">
+          <md-tooltip>
+              Shopping Cart
+            </md-tooltip>
+            <md-icon class="md-light md-48">
+              shopping cart
+            </md-icon>
+        </md-button>
+      </div>
+
+      <!-- Bottom row of top bar -->
+      <div class="md-toolbar-tools-bottom">
+      <div layout="row">
+        <md-select ng-model="category" class="category-select">
+          <md-option
+            ng-value="c"
+            ng-click="goToCategory(c)"
+            data-ng-repeat="c in db.categories">
+              {{c}}
+          </md-option>
+        </md-select>
+
+
+        <!-- Search Bar -->
+        <span flex></span>
+        <md-autocomplete
+          class="search-bar"
+            ng-disabled="false"
+            md-no-cache="false"
+            md-selected-item="selectedSearchItem"
+            md-search-text-change="searchTextChange(seachText)"
+            md-search-text="searchText"
+            md-selected-item-change="selectedItemChange(selectedSearchItem)"
+            md-items="book in db.books | bookcontent: searchText"
+            md-item-text="book.title"
+            md-min-length="1"
+            placeholder="Search books!">
+          <md-item-template>
+            <span md-highlight-text="searchText" md-highlight-flags="^i">{{book.title}}</span>
+          </md-item-template>
+          <md-not-found>
+            No matches found for "{{searchText}}".
+          </md-not-found>
+        </md-autocomplete>
+
+        <md-button class="md-icon-button search-icon" aria-label="Search!">
+          <md-icon>search</md-icon>
+        </md-button>
+      </div>
+      </div>
+
+    </md-toolbar>
+      <md-content>
