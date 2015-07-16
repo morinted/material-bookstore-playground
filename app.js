@@ -7,12 +7,24 @@ angular
                 controller: 'MainController'
             }).
             when('/book', {
-              templateUrl: './src/bookstore/book.html',
-              controller: 'MainController',
+                templateUrl: './src/bookstore/book.html',
+                controller: 'MainController',
             }).
             when('/result', {
                 templateUrl: './src/bookstore/result.html',
                 controller: 'MainController'
+            }).
+            when('/search-result', {
+                templateUrl: './src/bookstore/search-results.html',
+                controller: 'MainController'
+            }).
+            when('/checkout', {
+                templateUrl: './src/bookstore/checkout.html',
+                controller: 'MainController'
+            }).
+            when('/confirm', {
+                templateUrl: './src/bookstore/confirmation.html',
+                controller: 'MainController',
             }).
             otherwise({
                 redirectTo: '/'

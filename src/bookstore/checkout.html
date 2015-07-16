@@ -1,0 +1,101 @@
+<ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
+
+<form name="checkoutForm">
+  <h2 class="md-padding-left">Name</h2>
+  <div layout layout-sm="column">
+    <md-input-container flex>
+      <label>First name</label>
+      <input ng-model="checkout.firstName" required name="firstName">
+    </md-input-container>
+    <md-input-container flex>
+      <label>Last Name</label>
+      <input ng-model="checkout.lastName" required>
+    </md-input-container>
+  </div>
+  <h2 class="md-padding-left">Shipping Address</h2>
+  <md-input-container flex>
+    <label>Address</label>
+    <input ng-model="checkout.address" required>
+  </md-input-container>
+  <md-input-container>
+    <label>Address 2</label>
+    <input ng-model="checkout.address2">
+  </md-input-container>
+  <div layout layout-sm="column">
+    <md-input-container flex>
+      <label>City</label>
+      <input ng-model="checkout.city" required>
+    </md-input-container>
+    <md-input-container flex>
+      <label>State</label>
+      <input ng-model="checkout.state" required>
+    </md-input-container>
+  </div>
+    <md-input-container>
+      <label>Postal Code</label>
+      <input name="postalCode" ng-model="checkout.postalCode" ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/" required>
+      <div class="errors" ng-messages="checkoutForm.postalCode.$error" ng-if="checkoutForm.postalCode.$dirty && checkoutForm.postalCode.$invalid">
+        <div ng-message="pattern">Invalid Postal Code</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <md-select placeholder="Chooser shipping option" name="shipping" ng-model="checkout.shipping" required>
+        <md-option value="1">Standard Shipping (8$)</md-option>
+        <md-option value="2">Express Air Mail (25$)</md-option>
+      </md-select>
+    </md-input-container>
+
+
+    <h2 class="md-padding-left">Payment Info</h2>
+    <h4 class="md-padding-left">Credit Card</h4>
+    <div layout="row">
+        <md-input-container flex>
+            <label>Name on Card</label>
+            <input name="nameOnCard" ng-model="checkout.nameOnCard" required>
+        </md-input-container>
+       <md-input-container flex>
+            <label>Card Number</label>
+            <input name="cardNumber" ng-model="checkout.cardNumber" required>
+        </md-input-container>
+        </div>
+        <h4 class="md-padding-left">Expiration Date</h4>
+        <div layout="row">
+        <md-input-container>
+          <md-select placeholder="MM" name="expMonth" ng-model="checkout.expMonth" required>
+            <md-option value="1">1</md-option>
+            <md-option value="2">2</md-option>
+            <md-option value="3">3</md-option>
+            <md-option value="4">4</md-option>
+            <md-option value="5">5</md-option>
+            <md-option value="6">6</md-option>
+            <md-option value="7">7</md-option>
+            <md-option value="8">8</md-option>
+            <md-option value="9">9</md-option>
+            <md-option value="10">10</md-option>
+            <md-option value="11">11</md-option>
+            <md-option value="12">12</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container>
+          <md-select placeholder="YYYY" name="expYear" ng-model="checkout.expYear" required>
+            <md-option value="1">2015</md-option>
+            <md-option value="2">2016</md-option>
+            <md-option value="3">2017</md-option>
+            <md-option value="4">2018</md-option>
+            <md-option value="5">2019</md-option>
+            <md-option value="6">2020</md-option>
+            <md-option value="7">2021</md-option>
+          </md-select>
+        </md-input-container>
+    </div>
+    <div layout="row">
+    <p>Total amount: {{cart.total(cart.content)}}</p>
+    <a href="#/confirm">
+    <md-button class="md-padding-left md-dark checkoutButton">
+        Checkout
+    </md-button>
+    </a>
+    </div>
+</form>

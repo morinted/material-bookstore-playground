@@ -14,5 +14,16 @@
     <h2 class="md-display-1 md-padding-left">{{db.selectedBook.title}}</h2>
     <img ng-src="{{db.selectedBook.thumbUrl}}">
     </md-card>
+
+    <h2 class="md-display-2 md-padding-left">Book Suggestions</h2>
+      <md-list>
+        <div layout="row" layout-md="column" layout-sm="column" layout-align="space-around start">
+          <md-list-item class="md-2-line display-list" ng-repeat="book in db.getTop(5,3)">
+          <ng-include src="'./src/bookstore/book-thumb.html'"></ng-include>
+          </md-list-item>
+        </div>
+      </md-list>
 </div>
+
+
 <ng-include src="'./src/bookstore/container-end.html'"></ng-include>
