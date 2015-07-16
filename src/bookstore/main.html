@@ -70,13 +70,17 @@
   <md-card>
     <h2>New Releases</h2>
       <md-list>
-        <div layout="row">
-          <md-list-item class="md-2-line" ng-repeat="book in db.getTop(5,3)">
-            <span flex>
+        <div layout="row" layout-md="column" layout-align="space-around start">
+          <md-list-item class="md-2-line display-list" ng-repeat="book in db.getTop(5,3)">
+            <md-card flex>
+            <md-card-content  class="display-cards">
+            <div class = "thumb-container">
               <img class="book-thumb" ng-src="{{ book.thumbUrl }}" alt="{{ book.title }}" />
-              <h2>{{book.title}}</h2>
+              <h3 class="md-subhead">{{book.title | booklimit: 30}}</h3>
               <p>Author: {{book.author}}</p>
-            </span>
+            </div>
+            </md-card-content>
+            </md-card>
           </md-list-item>
         </div>
       </md-list>

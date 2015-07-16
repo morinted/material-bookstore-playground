@@ -6,7 +6,7 @@ angular.module('books', [])
         cart,
         $location
     ) {
-        $scope.title = "Bookstore!";
+        $scope.title = "Bookr";
         $scope.db = booksDB;
         $scope.cart = cart;
         $scope.category = "Browse by Category";
@@ -36,6 +36,20 @@ angular.module('books', [])
         };
 
 
+    }])
+    .filter('booklimit', [function () {
+        return function (title, limit) {
+            title = title.trim();
+            if (title.length > limit) {
+                title = title.substr(0, limit);
+                var ls = title.lastIndexOf(' ');
+                if (ls > -1) {
+                    title = title.substr(0, ls);
+                }
+                return title + '...';
+            }
+            return title;
+        };
     }])
     .filter('bookcontent', ['booksDB',
         function (booksDB) {
@@ -140,9 +154,8 @@ angular.module('books', [])
             },
             {
                 author: 'Anthony M. Amore',
-                title: 'The Art of the con: The Most Notorious Fakes, Frauds, and Forgeries in the Art World',
-                description: "Art scams are today so numerous that the specter of a lawsuit arising from a mistaken attribution has scared a number of experts away from the business of authentication and forgery, and with good reason. Art scams are increasingly convincing and involve incredible sums of money. The cons perpetrated by unscrupulous art dealers and their accomplices are proportionately elaborate. Anthony M. Amore's The Art of the Con tells the stories of some of history's most notorious yet untold cons. They involve stolen art hidden for decades; elaborate ruses that involve the Nazis and allegedly plundered art; the theft of a conceptual prototype from a well-known artist by his assistant to be used later to create copies; the use of online and television auction sites to scam buyers out of millions; and other confidence scams incredible not only for their boldness but more so because they actually worked. Using interviews and newly released court documents, The Art of the Con will also take the reader into the investigations that led to the capture of the con men, who oftentimes return back to the world of crime. For some, it's an irresistible urge because their innocent dupes all share something in common: they want to believe.",
-                price: 18.80,
+                title: ' The Art of the con: The Most Notorious Fakes, Frauds, and Forgeries in the Art World',
+                pice: 18.80,
                 percentOff: 0,
                 sales: 2,
                 categories: [0],
@@ -152,7 +165,6 @@ angular.module('books', [])
             {
                 author: 'Lacy Mucklow',
                 title: 'Color Me Calm: 100 Coloring Templates for Meditation and Relaxation',
-                description: "Our lives become busier with each passing day, and as technology escalates, so does our access to work, obligations, and stress. Constant stimulation and expectation have left us burnt out and distanced from the present moment. \"Now\" has become something that happens online, not in the space and time that we physically occupy. Color Me Calm is a guided coloring book designed for harried adults. Art therapist Lacy Mucklow and artist Angela Porter offer up 100 coloring templates all designed to help you get coloring and get relaxed. Organized into seven therapeutically-themed chapters including Mandalas, Water Scenes, Wooded Scenes, Geometric Patterns, Flora & Fauna, Natural Patterns, and Spirituality - the book examines the benefits of putting pencil to paper and offers adults an opportunity to channel their anxiety into satisfying, creative accomplishment. Part of the international bestselling Color Me series, Color Me Calm is the perfect way step back from the stress of everyday life, color, and relax!",
                 price: 17.09,
                 percentOff: 10,
                 sales: 10,
@@ -163,7 +175,6 @@ angular.module('books', [])
             {
                 author: 'Peter Hurley',
                 title: 'The Headshot: The Secrets to Creating Amazing Headshot Portraits',
-                description: "In The Headshot: The Secrets to Creating Amazing Headshot Portraits, Hurley shares everything the reader needs to know in order to get great images of their subjects–whether it's on assignment, a personal project, or simply shots of family and friends. Starting with his trademark \"recipe\"–\"white background, flat light, chopped-off heads\"–in over a dozen chapters he covers the following: the technical aspects of the shot, including lighting, composition, and camera setup; establishing a rapport with your subject, as well as provoking thought in order to drive expression; and how to direct the subject, including detailed discussions of how to influence the jaw, the smile, the eyes, and the eyebrows. With The Headshot, readers will be equipped to dramatically improve their headshot photographs–from lighting to composition to directing the best expression from their subjects.",
                 price: 35.10,
                 percentOff: 0,
                 sales: 1,
@@ -174,7 +185,6 @@ angular.module('books', [])
             {
                 author: 'Roberto Valenzuela',
                 title: 'Picture Perfect Posing: Practicing the Art of Posing for Photographers and Models',
-                description: "In Picture Perfect Posing, Roberto takes on the art of posing. For many photographers, after learning to compose an image and even light it properly, a portrait can still easily be a failure if the pose is not natural, elegant, and serving the needs of both the subject and the photographer. Instead of just showing page after page of poses–like most posing books on the market–Roberto actually breaks down the concept of posing by examining the anatomy, starting with the core foundation: the spinal chord and neck. Building from there, Roberto discusses every component of what makes poses work, as well as fail. How should the model hold her hands? Bend her elbows? Position her fingers? Should the model look toward or away from the camera, and why? It all depends on what the photographer wants for the shot, and Roberto discusses the entire process, from the intent of the photographer through the execution of the pose. For those who have been discouraged by an inability to pose their subjects, or who have simply not known where to start in order to \"figure it out,\" Picture Perfect Posing is the essential resource they need to learn how posing truly works, and how they can learn to direct the exact pose they need for the shot they want.",
                 price: 32.59,
                 percentOff: 33,
                 sales: 4,
@@ -185,7 +195,6 @@ angular.module('books', [])
             {
                 author: 'Robert K. Massie',
                 title: 'Peter the Great: His Life and World',
-                description: "Against the monumental canvas of seventeenth- and eighteenth-century Europe and Russia unfolds the magnificent story of Peter the Great, crowned co-tsar at the age of ten. Robert K. Massie delves deep into the life of this captivating historical figure, chronicling the pivotal events that shaped a boy into a legend—including his “incognito” travels in Europe, his unquenchable curiosity about Western ways, his obsession with the sea and establishment of the stupendous Russian navy, his creation of an unbeatable army, his transformation of Russia, and his relationships with those he loved most: Catherine, the robust yet gentle peasant, his loving mistress, wife, and successor; and Menshikov, the charming, bold, unscrupulous prince who rose to wealth and power through Peter’s friendship. Impetuous and stubborn, generous and cruel, tender and unforgiving, a man of enormous energy and complexity, Peter the Great is brought fully to life.",
                 price: 23.09,
                 percentOff: 30,
                 sales: 8,
@@ -197,7 +206,6 @@ angular.module('books', [])
                 author: 'Robert K. Massie',
                 title: 'Catherine the Great: Portrait of a Woman',
                 price: 10.90,
-                description: "The Pulitzer Prize–winning author of Peter the Great, Nicholas and Alexandra, and The Romanovs returns with another masterpiece of narrative biography, the extraordinary story of an obscure German princess who became one of the most remarkable, powerful, and captivating women in history. Born into a minor noble family, Catherine transformed herself into empress of Russia by sheer determination. For thirty-four years, the government, foreign policy, cultural development, and welfare of the Russian people were in her hands. She dealt with domestic rebellion, foreign wars, and the tidal wave of political change and violence churned up by the French Revolution. Catherine’s family, friends, ministers, generals, lovers, and enemies—all are here, vividly brought to life. History offers few stories richer than that of Catherine the Great. In this book, an eternally fascinating woman is returned to life.",
                 percentOff: 10,
                 sales: 4,
                 categories: [2],
@@ -207,7 +215,6 @@ angular.module('books', [])
             {
                 author: 'Dr. Seuss',
                 title: 'Oh, the Places You\'ll Go!',
-                // description: "A perennial favorite, Dr. Seuss’s wonderfully wise graduation speech is the perfect send-off for children starting out in the world, be they nursery school, high school, or college grads! From soaring to high heights and seeing great sights to being left in a Lurch on a prickle-ly perch, Dr. Seuss addresses life’s ups and downs with his trademark humorous verse and illustrations, while encouraging readers to find the success that lies within. In a starred review, Booklist notes: “Seuss’s message is simple but never sappy: life may be a ‘Great Balancing Act,’ but through it all ‘There’s fun to be done.’”",
                 price: 16.93,
                 percentOff: 0,
                 sales: 7,
@@ -218,7 +225,6 @@ angular.module('books', [])
             {
                 author: 'Margaret Wise Brown',
                 title: 'Goodnight Moon',
-                description: "In a great green room, tucked away in bed, is a little bunny. \"Goodnight room, goodnight moon.\" And to all the familiar things in the softly lit room--to the picture of the three little bears sitting in chairs, to the clocks and his socks, to the mittens and the kittens, to everything one by one--he says goodnight. In this classic of modern children's literature, beloved by generations of readers and listeners, the quiet poetry of the words and the gentle, lulling illustrations combine to make a perfect book for the end of the day.",
                 price: 8.54,
                 percentOff: 0,
                 sales: 5,
@@ -229,7 +235,6 @@ angular.module('books', [])
             {
                 author: 'Maunika Gowardhan',
                 title: 'Indian Kitchen',
-                description: "Whatever your mood, Indian Kitchen will inspire you to add Indian cooking into your weekly menu.",
                 price: 24.44,
                 sales: 4,
                 percentOff: 23,
@@ -240,9 +245,8 @@ angular.module('books', [])
             {
                 author: 'Gordon Ramsay',
                 title: 'Gordon Ramsay\'s Home Cooking: Everything You Need to Know to Make Fabulous Food',
-                description: "Based on a new cooking show, this book will give experienced as well as novice cooks the desire, confidence and inspiration to get cooking. Ramsay will offer simple, accessible recipes with a \"wow\" factor. Gordon has travelled the world from India and the Far East to LA and Europe, and the recipes in this book will draw all these culinary influences together to show us simple, vibrant and delicious recipes that reflect the way we eat today. For example: Miso braised salmon fillet with Asian vegetables, Pork and Bacon slider with home made bbq sauce, Curried Sweetcorn Soup, Wild Mushroom Risotto Arrancini, and Baked Lemon Cheesecake with Raspberries. ",
                 price: 32.99,
-                sales: 12,
+                salesP: 12,
                 percentOff: 11.27,
                 categories: [4],
                 thumbUrl: 'http://ecx.images-amazon.com/images/I/51KRDDw84EL._SX404_BO1,204,203,200_.jpg',
@@ -251,7 +255,6 @@ angular.module('books', [])
             {
                 author: 'Bessel van der Kolk MD',
                 title: 'The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma',
-                description: "Trauma is a fact of life. Veterans and their families deal with the painful aftermath of combat; one in five Americans has been molested; one in four grew up with alcoholics; one in three couples have engaged in physical violence. Such experiences inevitably leave traces on minds, emotions, and even on biology. Sadly, trauma sufferers frequently pass on their stress to their partners and children.",
                 price: 21.06,
                 sales: 32,
                 percentOff: 11.89,
@@ -262,7 +265,6 @@ angular.module('books', [])
             {
                 author: 'Peter A. levine Ph.D.',
                 title: 'In an Unspoken Voice: How the Body Releases Trauma and Restores Goodness',
-                description: "In this culmination of his life’s work, Peter A. Levine draws on his broad experience as a clinician, a student of comparative brain research, a stress scientist and a keen observer of the naturalistic animal world to explain the nature and transformation of trauma in the body, brain and psyche. In an Unspoken Voice is based on the idea that trauma is neither a disease nor a disorder, but rather an injury caused by fright, helplessness and loss that can be healed by engaging our innate capacity to self-regulate high states of arousal and intense emotions. Enriched with a coherent theoretical framework and compelling case examples, the book elegantly blends the latest findings in biology, neuroscience and body-oriented psychotherapy to show that when we bring together animal instinct and reason, we can become more whole human beings.",
                 price: 18.01,
                 sales: 9,
                 percentOff: 90,
@@ -273,7 +275,6 @@ angular.module('books', [])
             {
                 author: 'George R.R. Martin',
                 title: 'Song of Ice and Fire Series Boxed Set',
-                description: "For the first time, all five novels in the epic fantasy series that inspired HBO’s Game of Thrones are together in one boxed set. An immersive entertainment experience unlike any other, A Song of Ice and Fire has earned George R. R. Martin—dubbed “the American Tolkien” by Time magazine—international acclaim and millions of loyal readers. Now here is the entire monumental cycle.",
                 price: 59.95,
                 sales: 8,
                 percentOff: 38,
@@ -284,7 +285,6 @@ angular.module('books', [])
             {
                 author: 'George R.R. Martin',
                 title: 'The World of Ice and Fire: The Untold History of Westeros and the Game of Thrones',
-                description: "This lavishly illustrated volume is a comprehensive history of the Seven Kingdoms, providing vividly constructed accounts of the epic battles, bitter rivalries, and daring rebellions that lead to the events of A Song of Ice and Fire and HBO’s Game of Thrones. In a collaboration that’s been years in the making, Martin has teamed with Elio M. García, Jr., and Linda Antonsson, the founders of the renowned fan site Westeros.org—perhaps the only people who know this world almost as well as its visionary creator.",
                 price: 58.00,
                 sales: 2,
                 percentOff: 36,
@@ -295,7 +295,6 @@ angular.module('books', [])
             {
                 author: 'Austin Stenback',
                 title: 'Fitness: TOP 10 EXERCISING TIPS',
-                description: "If your feeling lost when going about working out and fitness then follow these TOP 10 TIPS that will make your workouts as product as possible. I give you the elite tactics that will change your workouts from good to great!!! ",
                 price: 1.24,
                 sales: 3,
                 percentOff: 0,
@@ -307,17 +306,15 @@ angular.module('books', [])
                 author: 'Austin Stenback',
                 title: 'Weight Loss Blueprint: Complete Guide to a Healthier Lifestyle',
                 price:  1.25,
-                description: " Weight Loss Blueprint gives you the advice and guidance to achieve your weight loss goals and become a better, happier, and healthier person. Losing weight is one thing but keeping it off is another. Weight Loss Blueprint gives you the knowledge to have a healthier lifestyle and keep weight off! ",
                 sales: 7,
                 percentOff: 0,
                 categories: [7],
-                thumbUrl: 'http://ecx.images-amazon.com/images/I/51K2lMxswOL._AA324_PIkin4,BottomRight,-60,22_AA346_SH20_OU15_.jpg',
+                thumbUrl: 'http://ecx.images-amazon.com/images/I/51K2lMxswOL._SX312_BO1,204,203,200_.jpg',
                 releaseDate: 2017.02,
             },
             {
                 author: 'Gillian Flynn',
                 title: 'Dark Places',
-                description: "Libby Day was seven when her mother and two sisters were murdered in “The Satan Sacrifice of Kinnakee, Kansas.” She survived—and famously testified that her fifteen-year-old brother, Ben, was the killer. Twenty-five years later, the Kill Club—a secret society obsessed with notorious crimes—locates Libby and pumps her for details. They hope to discover proof that may free Ben. Libby hopes to turn a profit off her tragic history: She’ll reconnect with the players from that night and report her findings to the club—for a fee. As Libby’s search takes her from shabby Missouri strip clubs to abandoned Oklahoma tourist towns, the unimaginable truth emerges, and Libby finds herself right back where she started—on the run from a killer.",
                 price: 32.72,
                 sales: 5,
                 percentOff: 0,
@@ -328,7 +325,6 @@ angular.module('books', [])
             {
                 author: 'Paula Hawkins',
                 title: 'The Girl on the Traim',
-                description: "Three women, three men, connected through marriage or infidelity. Each is to blame for something. But only one is a killer in this nail-biting, stealthy psychological thriller about human frailty and obsession.",
                 price: 24.95,
                 percentOff: 28,
                 categories: [8],
@@ -339,7 +335,6 @@ angular.module('books', [])
             {
                 author: 'John Green',
                 title: 'Paper Towns',
-                description: "When Margo Roth Spiegelman beckons Quentin Jacobsen in the middle of the night—dressed like a ninja and plotting an ingenious campaign of revenge—he follows her. Margo’s always planned extravagantly, and, until now, she’s always planned solo. After a lifetime of loving Margo from afar, things are finally looking up for Q . . . until day breaks and she has vanished. Always an enigma, Margo has now become a mystery. But there are clues. And they’re for Q.",
                 price: 10.99,
                 percentOff: 10,
                 categories: [9],
@@ -350,7 +345,6 @@ angular.module('books', [])
             {
                 author: 'John Green',
                 title: 'The Fault in Our Stars',
-                description: "Despite the tumor-shrinking medical miracle that has bought her a few years, Hazel has never been anything but terminal, her final chapter inscribed upon diagnosis. But when a gorgeous plot twist named Augustus Waters suddenly appears at Cancer Kid Support Group, Hazel’s story is about to be completely rewritten.",
                 price: 16.61,
                 percentOff: 28,
                 categories: [3, 9],
@@ -360,8 +354,7 @@ angular.module('books', [])
             },
             {
                 author: 'Andy Weir',
-                title: 'The Martian: A Noval',
-                description: "I'm stranded on Mars. I have no way to communicate with Earth. I'm in a Habitat designed to last 31 days. If the Oxygenator breaks down, I'll suffocate. If the Water Reclaimer breaks down, I'll die of thirst. If the Hab breaches, I'll just kind of explode. If none of those things happen, I'll eventually run out of food and starve to death. So yeah. I'm screwed.",
+                title: 'The Martian: A Novel',
                 price: 19.95,
                 percentOff: 15,
                 categories: [10],
@@ -371,8 +364,7 @@ angular.module('books', [])
             },
             {
                 author: 'Neal Stephenson',
-                title: 'Seveneves: A Novel',
-                description: "A catastrophic event renders the earth a ticking time bomb. In a feverish race against the inevitable, nations around the globe band together to devise an ambitious plan to ensure the survival of humanity far beyond our atmosphere, in outer space.",
+                title: 'Steveneves: A Novel',
                 price: 39.99,
                 percentOff: 35,
                 categories: [10],
@@ -449,8 +441,6 @@ angular.module('books', [])
                 prop = 'percentOff';
             } else if (criteria === 3) {
                 prop = 'releaseDate';
-            } else if (criteria === 4) {
-                prop = 'sales';
             }
             function sortByProp(a, b) {
                 if (a[prop] < b[prop]) {
@@ -487,7 +477,7 @@ angular.module('books', [])
             var ascending = true,
                 results;
 
-            if (criteria === 2 || criteria === 3 || criteria === 4) {
+            if (criteria === 2 || criteria === 3) {
                 ascending = false;
             }
             if (n) {
