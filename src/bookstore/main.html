@@ -1,33 +1,73 @@
 <div layout="column" layout-fill>
-  <md-toolbar>
+  <md-toolbar class="md-tall">
     <div class="md-toolbar-tools">
       <span>{{title}}</span>
       <!-- fill up the space between left and right area -->
       <span flex></span>
-      <md-button>
-        <md-tooltip>
-            Home
-          </md-tooltip>
-          <md-icon class="md-light md-48">
-            home
-          </md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
-  <md-content>
-  <h2>Cookbooks</h2>
-  <ul>
-    <li ng-repeat="book in db.getBooksByCategory(4)">
-    {{ book.title }}
+      <md-input-container>
+        <input ng-model="db.keyword">
+        <label>
+          <md-icon class="md-light">search</md-icon>
+        </label>
+      </md-input-container>
+      <span flex></span>
+      </div>
+      <div class="md-toolbar-tools-bottom" layout="row">
+        <span flex></span>
+        
+        <md-button>
+          <md-tooltip>
+              Shopping Cart
+            </md-tooltip>
+            <md-icon class="md-light md-48">
+              shopping cart
+            </md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content>
+
+    <h2>Cookbooks</h2>
+    <ul>
+      <li ng-repeat="book in db.getBooksByCategory(4)">
+      {{ book.title }}
     </li>
   </ul>
 
-  <h2>Most Recently Released Books</h2>
-  <ul>
-    <li ng-repeat="book in db.getTop(5, 3)">
-    {{ book.title }}: {{ db.toDate(book.releaseDate) }}
-    </li>
-  </ul>
+  <div layout="column">
+  <md-card>
+    <h2>New Releases</h2>
+      <md-list>
+        <div layout="row">
+          <md-list-item class="md-2-line" ng-repeat="book in db.getTop(5,3)">
+            <span flex>
+              <img class="book-thumb" ng-src="{{ book.thumbUrl }}" alt="{{ book.title }}" />
+              <h2>{{book.title}}</h2>
+              <p>Author: {{book.author}}</p>
+            </span>
+          </md-list-item>
+        </div>
+      </md-list>
+  </md-card>
+
+  <md-card>
+    <h2>Best Sellers</h2>
+    <md-list>
+      <div layout="row">
+        <md-list-item class="md-2-line" ng-repeat="book in db.getTop(5,4)">
+          <span flex>
+            <img class="book-thumb" ng-src="{{ book.thumbUrl }}" alt="{{ book.title }}" />
+            <h2>{{book.title}}</h2>
+            <p>Author: {{book.author}}</p>
+          </span>
+        </md-list-item>
+      </div>
+    </md-list>
+  </md-card>
+
+  </div>
+
+
 
   <h2>Cart:</h2>
   <ul>
@@ -40,7 +80,7 @@
   <h3>Total: {{cart.total(cart.content) | currency}}</h3>
 
   <h2>Filter:</h2>
-  <input ng-model="db.keyword">
+
   <ul>
     <li ng-repeat="book in db.books | bookcontent: db.keyword">
     {{ book.title }}: {{ db.toDate(book.releaseDate) }} <br>
