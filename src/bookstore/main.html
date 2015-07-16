@@ -1,0 +1,55 @@
+<div layout="column" layout-fill>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>{{title}}</span>
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <md-button>
+        <md-tooltip>
+            Home
+          </md-tooltip>
+          <md-icon class="md-light md-48">
+            home
+          </md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content>
+  <h2>Cookbooks</h2>
+  <ul>
+    <li ng-repeat="book in db.getBooksByCategory(4)">
+    {{ book.title }}
+    </li>
+  </ul>
+
+  <h2>Most Recently Released Books</h2>
+  <ul>
+    <li ng-repeat="book in db.getTop(5, 3)">
+    {{ book.title }}: {{ db.toDate(book.releaseDate) }}
+    </li>
+  </ul>
+
+  <h2>Cart:</h2>
+  <ul>
+    <li ng-repeat="item in cart.content">
+    {{ item.quantity }}x of {{ item.book.title }} at<br>
+    <b>{{db.getPrice(item.book) | currency}}</b> each <span ng-if="item.book.percentOff !== 0">({{item.book.percentOff}}% off listing price of {{item.book.price | currency}})</span><br>
+    <input value="Remove all from cart" type="button" ng-click="cart.removeFromCart(item.book)">
+    </li>
+  </ul>
+  <h3>Total: {{cart.total(cart.content) | currency}}</h3>
+
+  <h2>Filter:</h2>
+  <input ng-model="db.keyword">
+  <ul>
+    <li ng-repeat="book in db.books | bookcontent: db.keyword">
+    {{ book.title }}: {{ db.toDate(book.releaseDate) }} <br>
+    <img class="book-thumb" ng-src="{{ book.thumbUrl }}" alt="{{ book.title }}" />
+    <br>
+    <input value="Add 1 to Cart" type="button" ng-click="cart.addToCart(book, 1)">
+    </li>
+  </ul>
+
+
+  </md-content>
+</div>
