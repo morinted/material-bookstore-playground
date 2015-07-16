@@ -1,13 +1,41 @@
 'use strict';
 angular.module('books', [])
-    .controller('MainController', ['$scope', 'booksDB', 'cart', function (
+    .controller('MainController', ['$scope', 'booksDB', 'cart', '$location', function (
         $scope,
         booksDB,
-        cart
+        cart,
+        $location
     ) {
         $scope.title = "Bookstore!";
         $scope.db = booksDB;
         $scope.cart = cart;
+        $scope.category = "Browse by Category";
+
+        $scope.searchTextChange = function (text) {
+            console.log("search text changed to " + text);
+        }
+
+        console.log(booksDB.category);
+
+        $scope.goToCategory = function (cat) {
+            console.log("going to category " + cat);
+            // don't navigate if the default is still selected
+            if (cat !== "Browse by Category") {
+
+                var catIndex = $scope.db.categories.indexOf(cat);
+                if (catIndex != -1) {
+                    console.log("index = " + catIndex);
+                    $scope.results = booksDB.getBooksByCategory(catIndex);
+                    booksDB.category = catIndex;
+                    $location.path('/result');
+                } else {
+                    console.log("could not find category " + cat);
+                }
+
+            }
+        };
+
+
     }])
     .filter('bookcontent', ['booksDB',
         function (booksDB) {
@@ -48,16 +76,19 @@ angular.module('books', [])
         var db = {};
 
         db.categories = [
-            // 0,   1              2            3
+            "Browse by Category",
+            // 1,   2              3            4
             "Art", "Photography", "Biographies", "Children's Books",
-            // 4          5                     6           7
+            // 5          6                     7           8
             "Cookbooks", "Health and Fitness", "Fantasy", "Fitness",
-            // 8        9           10                11
+            // 8        10           11                12
             "Mystery", "Romance", "Science Fiction", "Non-Fiction",
-            // 12
-            "Self-Help"
+            // 13
+            "Self-Help",
 
         ];
+
+        db.category = 0;
 
         db.toDate = function (date) {
             var year,
@@ -473,6 +504,8 @@ angular.module('books', [])
                 catLen,
                 cats,
                 j;
+
+                category--;
             for (i; i < len; i += 1) {
                 cats = db.books[i].categories;
                 catLen = cats.length;
@@ -486,6 +519,7 @@ angular.module('books', [])
             }
             return results;
         };
+
 
 
         return db;
