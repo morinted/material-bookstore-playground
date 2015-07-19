@@ -1,7 +1,12 @@
 <!-- include top bar -->
 <ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
+<div layout="column">
 
-<h2 class="md-display-2 md-padding-left">{{db.categories[db.category]}}</h2>
+    <md-card  class="md-whiteframe-z4">
+    <md-card-content>
+      <md-button class="md-raised" ng-click="goBack()">Back</md-button>
+      <hr/>
+<h2 class="md-display-2 md-padding-left" style="padding-top: 0 !important;margin-top: 0.25em !important">{{db.categories[db.category]}}</h2>
 
     <md-list>
       <div layout="row" layout-md="column" layout-sm="column" layout-align="start center">
@@ -10,3 +15,4 @@
         </md-list-item>
       </div>
     </md-list>
+    </md-card-content></md-card></div>

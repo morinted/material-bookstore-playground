@@ -1,17 +1,24 @@
 <ng-include src="'./src/bookstore/container-begin.html'"></ng-include>
 
-<div layout="row">
-<h2 class="md-padding-left">An email receipt has been sent to your email</h2>
+<div layout="column">
+
+    <md-card  class="md-whiteframe-z4">
+    <md-card-content>
+<div layout="column">
+<h1 class="md-headline">Thank you for your purchase of 10 items.</h1>
+<h2 class="md-subhead">An email receipt has been sent to your email, and your order will be shipped out within 24 hours.</h2>
 </div>
 <div layout="row">
-<span class="md-padding-left">Confirmation number: </span><strong>123123</strong>
+<span class="md-subhead">Confirmation number: </span><strong>123123</strong>
 
 </div>
 
 <div layout="row">
 <a href="#/">
-<md-button>
+    <span ng-init="db.cart.content = []"></span>
+<md-button class="md-primary md-raised">
     Continue Shopping!
 </md-button>
 </a>
 </div>
+    </md-card-content></md-card></div>

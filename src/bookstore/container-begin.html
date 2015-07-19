@@ -1,9 +1,11 @@
 <div layout="column" layout-fill>
   <md-toolbar class="md-tall">
     <div class="md-toolbar-tools">
+      <a href="#/">
             <md-icon ng-href="#/" md-svg-icon="books">
             </md-icon>
-      <span ng-href="#/" class="site-title">{{title}}</span>
+      <span class="site-title">{{title}}</span>
+    </a>
       <!-- fill up the space between left and right area -->
       <span flex></span>
       <!-- Shopping Cart Icon -->
@@ -52,7 +54,7 @@
             </div>
           </md-item-template>
           <md-not-found>
-            No matches found for "{{searchText}}".
+            No matches found for "{{db.keyword}}".
           </md-not-found>
         </md-autocomplete>
 

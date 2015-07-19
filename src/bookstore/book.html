@@ -26,16 +26,19 @@
     <p class="inline">{{db.selectedBook.description}}</p>
     </div>
     </md-card-content>
-    </md-card>
-
-    <h2 class="md-display-2 md-padding-left">Book Suggestions</h2>
+    <md-card-content>
+    <h2 class="md-display-1 md-padding-left">Other Books You May Like</h2>
       <md-list>
         <div layout="row" layout-md="column" layout-sm="column" layout-align="space-around start">
-          <md-list-item class="md-2-line display-list" ng-repeat="book in db.getTop(5,3)">
+          <md-list-item class="md-2-line display-list" ng-repeat="book in db.getTop(4,3)">
           <ng-include src="'./src/bookstore/book-thumb.html'"></ng-include>
           </md-list-item>
         </div>
       </md-list>
+    </md-card-content>
+    </md-card>
+
+
 </div>
 
 
